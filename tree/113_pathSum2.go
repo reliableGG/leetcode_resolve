@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TreeNode struct {
 	Val   int
@@ -8,41 +10,32 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func hasPathSum(root *TreeNode, sum int) bool {
-	result := false
+func pathSum(root *TreeNode, sum int) [][]int {
+	var result [][]int
 	path := make([]int, 0)
+	if root == nil {
+		return nil
+	}
 	dfs(root, path, sum, &result)
 	return result
 }
 
-func dfs(root *TreeNode, path []int, sum int, res *bool) {
-	if *res {
-		return
-	}
-
-	if root == nil {
-		return
-	}
+func dfs(root *TreeNode, path []int, sum int, result *[][]int) {
 	if root.Left == nil && root.Right == nil {
-		var result int
+		path = append(path, root.Val)
+		var res int
 		for _, v := range path {
-			result += v
+			res = res + v
 		}
-		result += root.Val
-		if result == sum {
-			*res = true
+		if res == sum {
+			*result = append(*result, path)
 		}
 	}
-
-	/*
-	 *for _, v := range []*TreeNode{root.Left, root.Right} {
-	 *    if v != nil {
-	 *        dfs(v, append(path, root.Val), sum, res)
-	 *    }
-	 *}
-	 */
-	dfs(root.Left, append(path, root.Val), sum, res)
-	dfs(root.Right, append(path, root.Val), sum, res)
+	for _, v := range []*TreeNode{root.Left, root.Right} {
+		if v != nil {
+			dfs(v, append(path, root.Val), sum, result)
+		}
+	}
 }
 
 func main() {
@@ -66,6 +59,6 @@ func main() {
 	n6.Left = nil
 	n6.Right = nil
 
-	res := hasPathSum(nil, 18)
+	res := pathSum(&n1, 20)
 	fmt.Printf("%v\n", res)
 }

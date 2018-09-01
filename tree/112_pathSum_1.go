@@ -9,40 +9,15 @@ type TreeNode struct {
 }
 
 func hasPathSum(root *TreeNode, sum int) bool {
-	result := false
-	path := make([]int, 0)
-	dfs(root, path, sum, &result)
-	return result
-}
-
-func dfs(root *TreeNode, path []int, sum int, res *bool) {
-	if *res {
-		return
-	}
-
 	if root == nil {
-		return
-	}
-	if root.Left == nil && root.Right == nil {
-		var result int
-		for _, v := range path {
-			result += v
-		}
-		result += root.Val
-		if result == sum {
-			*res = true
-		}
+		return false
 	}
 
-	/*
-	 *for _, v := range []*TreeNode{root.Left, root.Right} {
-	 *    if v != nil {
-	 *        dfs(v, append(path, root.Val), sum, res)
-	 *    }
-	 *}
-	 */
-	dfs(root.Left, append(path, root.Val), sum, res)
-	dfs(root.Right, append(path, root.Val), sum, res)
+	if root.Left == nil && root.Right == nil {
+		return root.Val == sum
+	}
+
+	return hasPathSum(root.Left, sum-root.Val) || hasPathSum(root.Right, sum-root.Val)
 }
 
 func main() {
@@ -66,6 +41,6 @@ func main() {
 	n6.Left = nil
 	n6.Right = nil
 
-	res := hasPathSum(nil, 18)
+	res := hasPathSum(&n1, 20)
 	fmt.Printf("%v\n", res)
 }
