@@ -26,6 +26,7 @@ func flatten(root *TreeNode) {
 		root = root.Right
 	}
 	root.Right = currRight
+
 	fmt.Println("first ending")
 }
 
