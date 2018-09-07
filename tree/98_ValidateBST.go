@@ -16,7 +16,7 @@ func isValidBST(root *TreeNode) bool {
 	return res
 }
 
-func doValidateBST(root *TreeNode, res *bool, lowerBound, upperBound *int) {
+func doValidateBST(node *TreeNode, res *bool, lowerBound, upperBound *int) {
 	if node == nil || !*res {
 		return
 	}
@@ -28,6 +28,6 @@ func doValidateBST(root *TreeNode, res *bool, lowerBound, upperBound *int) {
 	}
 
 	v := node.Val
-	doValidateBST(res, node.Left, upperBound, &v)
-	doValidateBST(res, node.Right, &v, lowerBound)
+	doValidateBST(node.Left, res, upperBound, &v)
+	doValidateBST(node.Right, res, &v, lowerBound)
 }
