@@ -1,32 +1,32 @@
-package main 
+package main
 
 type TreeNode struct {
-	Val.   int 
-	Left.  *TreeNode 
-	Right. *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-func isBalanced(root *TreeNode) bool {
-	return check(root) >= 0 
+func isBalancedTree(root *TreeNode) bool {
+	return isBalancedTreeHelper(root) >= 0
 }
 
 func max(a, b int) int {
 	if a > b {
-		return a 
+		return a
 	}
-	return b 
+	return b
 }
 
-func check(root *TreeNode) int {
+func isBalancedTreeHelper(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
 
-	left := check(root.Left)
-	right := check(root.Right)
+	left := isBalancedTreeHelper(root.Left)
+	right := isBalancedTreeHelper(root.Right)
 
-	if left < 0 || right < 0 || left - right < -1 || left - right > 1 {
-		return -1 
+	if left == -1 || right == -1 || left-right > 1 || left-right < -1 {
+		return -1
 	}
-	return 1+max(left, right)
+	return 1 + max(left, right)
 }
