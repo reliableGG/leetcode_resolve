@@ -30,5 +30,17 @@ func factorial(n int) []int {
 	return res
 }
 
-func main() {
+func getPermutation(n int, k int) string {
+	fact := factorial(n - 1)
+	out := make([]byte, 0, n)
+	used := make([]bool, n)
+	k--
+	for i := n - 1; i >= 0; i-- {
+		p := k / fact[i]
+		v := getNthEle(p+1, used)
+		used[v] = true
+		out = append(out, '0'+byte(v+1))
+		k %= fact[i]
+	}
+	return string(out)
 }
