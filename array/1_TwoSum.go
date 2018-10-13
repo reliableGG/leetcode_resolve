@@ -8,7 +8,6 @@ func twoSum(nums []int, target int) []int {
 	for index, value := range nums {
 		dict[value] = index
 	}
-	fmt.Println(dict)
 
 	for i, v := range nums {
 		k := target - v
