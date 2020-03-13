@@ -9,34 +9,49 @@ type ListNode struct {
 	Next *ListNode
 }
 
+//func deleteDuplicates(head *ListNode) *ListNode {
+//	if head == nil {
+//		return nil
+//	}
+//	//dummyhead := new(ListNode)
+//	dummyhead := new(ListNode)
+//	dummyhead.Next = head
+//	prev := dummyhead
+//	mid := dummyhead.Next
+//	next := mid.Next
+//	curr := dummyhead
+//
+//	for next != nil {
+//		if mid.Val != prev.Val && mid.Val != next.Val {
+//			curr.Next = mid
+//			curr = curr.Next
+//			curr.Next = nil
+//		}
+//
+//		prev = prev.Next
+//		mid = prev.Next
+//		next = mid.Next
+//
+//	}
+//	if mid.Next == nil && mid.Val != prev.Val {
+//		curr.Next = mid
+//	}
+//	return dummyhead.Next
+//}
+
 func deleteDuplicates(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	//dummyhead := new(ListNode)
-	dummyhead := new(ListNode)
-	dummyhead.Next = head
-	prev := dummyhead
-	mid := dummyhead.Next
-	next := mid.Next
-	curr := dummyhead
 
-	for next != nil {
-		if mid.Val != prev.Val && mid.Val != next.Val {
-			curr.Next = mid
-			curr = curr.Next
-			curr.Next = nil
+	for pre, cur := head, head.Next; cur != nil; cur = cur.Next {
+		if pre.Val == cur.Val {
+			pre.Next = cur.Next
+		} else {
+			pre = cur
 		}
-
-		prev = prev.Next
-		mid = prev.Next
-		next = mid.Next
-
 	}
-	if mid.Next == nil && mid.Val != prev.Val {
-		curr.Next = mid
-	}
-	return dummyhead.Next
+	return head
 }
 
 func main() {

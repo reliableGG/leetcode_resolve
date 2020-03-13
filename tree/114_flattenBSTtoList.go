@@ -11,13 +11,15 @@ type TreeNode struct {
 }
 
 func flatten(root *TreeNode) {
-	if root == nil || (root.Left == nil && root.Right == nil) {
+	if root == nil {
+		//if root == nil || (root.Left == nil && root.Right == nil) {
 		return
 	}
 	flatten(root.Left)
 	fmt.Println("left ending")
 	flatten(root.Right)
 	fmt.Println("right ending")
+	fmt.Println("right value => %v\n", root.Val)
 	currRight := root.Right
 	fmt.Printf("currRight => %v\n", currRight)
 	root.Right = root.Left

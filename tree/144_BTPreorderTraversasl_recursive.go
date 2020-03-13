@@ -19,6 +19,7 @@ func preorderTraversal(root *TreeNode) []int {
 	result = append(result, preorderTraversal(root.Right)...)
 	return result
 }
+
 func main() {
 
 	n1 := TreeNode{Val: 1}
