@@ -8,28 +8,28 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func preorderTraversal(root *TreeNode) []int {
+func levelOrder(root *TreeNode) [][]int {
+	result := [][]int{}
 	if root == nil {
-		return nil
+		return result
 	}
-
-	res := []int{}
-	stack := []*TreeNode{root}
-
-	for len(stack) > 0 {
-		node := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-		res = append(res, node.Val)
-
-		if node.Right != nil {
-			stack = append(stack, node.Right)
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		curLevel := []int{}
+		qlen := len(queue)
+		for i := 0; i < qlen; i++ {
+			node := queue[0]
+			queue = queue[1:]
+			curLevel = append(curLevel, node.Val)
+			for _, child := range []*TreeNode{node.Left, node.Right} {
+				if child != nil {
+					queue = append(queue, child)
+				}
+			}
 		}
-		if node.Left != nil {
-			stack = append(stack, node.Left)
-		}
+		result = append(result, curLevel)
 	}
-
-	return res
+	return result
 }
 
 func main() {
@@ -54,6 +54,6 @@ func main() {
 	n6.Left = nil
 	n6.Right = nil
 
-	node := preorderTraversal(&n1)
+	node := levelOrder(&n1)
 	fmt.Println(node)
 }
