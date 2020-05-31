@@ -12,18 +12,14 @@ func MaxDepthOfBTree(node *Node) int {
 	if node == nil {
 		return 0
 	}
-	if node.lchild == nil && node.rchild == nil {
-		return 1
-	}
 	return Max(MaxDepthOfBTree(node.lchild), MaxDepthOfBTree(node.rchild)) + 1
 }
 
 func Max(x, y int) int {
 	if x > y {
 		return x
-	} else {
-		return y
 	}
+	return y
 }
 
 func main() {

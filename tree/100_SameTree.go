@@ -15,3 +15,10 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 	}
 	return isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)
 }
+
+func isSameTreeRec(p *TreeNode, q *TreeNode) bool {
+	stack := []*TreeNode{}
+
+	stack = append(stack, p)
+	stack = append(stack, q)
+}

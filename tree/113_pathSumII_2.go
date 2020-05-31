@@ -10,23 +10,23 @@ type TreeNode struct {
 
 func pathSum(root *TreeNode, sum int) [][]int {
 	var slice [][]int
-	findPath(root, sum, &slice, []int(nil))
+	findPath(root, sum, &slice, []int{})
 	return slice
 }
-
-func findPath(node *TreeNode, sum int, slice *[][]int, stack []int) {
+func findPath(node *TreeNode, sum int, slice *[][]int, path []int) {
 	if node == nil {
 		return
 	}
-	sum -= node.Val
-	stack = append(stack, node.Val)
-
-	if sum == 0 && node.Left == nil && node.Right == nil {
-		*slice = append(*slice, append([]int(nil), stack...))
+	path = append(path, node.Val)
+	if node.Left == nil && node.Right == nil {
+		if sum == node.Val {
+			*slice = append(*slice, path)
+		}
 	}
 
-	findPath(node.Left, sum, slice, stack)
-	findPath(node.Right, sum, slice, stack)
+	for _, child := range []*TreeNode{node.Left, node.Right} {
+		findPath(child, sum-node.Val, slice, path)
+	}
 }
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 	n2 := TreeNode{Val: 9}
 	n3 := TreeNode{Val: 20}
 	n4 := TreeNode{Val: 7}
-	n5 := TreeNode{Val: 7}
+	n5 := TreeNode{Val: 15}
 
 	n1.Left = &n2
 	n1.Right = &n3

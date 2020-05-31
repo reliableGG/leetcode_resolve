@@ -12,24 +12,22 @@ type TreeNode struct {
 
 func flatten(root *TreeNode) {
 	if root == nil {
-		//if root == nil || (root.Left == nil && root.Right == nil) {
 		return
 	}
 	flatten(root.Left)
-	fmt.Println("left ending")
 	flatten(root.Right)
-	fmt.Println("right ending")
-	fmt.Println("right value => %v\n", root.Val)
-	currRight := root.Right
-	fmt.Printf("currRight => %v\n", currRight)
+
+	if root.Left == nil {
+		return
+	}
+
+	p := root.Left
+	for p.Right != nil {
+		p = p.Right
+	}
+	p.Right = root.Right
 	root.Right = root.Left
 	root.Left = nil
-	for root.Right != nil {
-		root = root.Right
-	}
-	root.Right = currRight
-
-	fmt.Println("first ending")
 }
 
 func main() {
